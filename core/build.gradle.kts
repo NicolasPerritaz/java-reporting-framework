@@ -1,5 +1,6 @@
 plugins {
-    id("java")
+    java
+    `jvm-test-suite`
 }
 
 group = "org.javareporting.framework"
@@ -20,4 +21,32 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+testing {
+    suites {
+        val test by getting(JvmTestSuite::class) {
+            useJUnitJupiter()
+        }
+
+        register<JvmTestSuite>("integrationTest") {
+            dependencies {
+                implementation(project())
+            }
+
+            sources {
+                java {
+                    setSrcDirs(listOf("src/it/java"))
+                }
+            }
+
+            targets {
+                all {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
+        }
+    }
 }
