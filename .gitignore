@@ -1,3 +1,14 @@
+# IDE and buld tools
+/target/
+/build/
+.classpath
+.project
+*.iml
+.idea
+.settings/
+/bin/
+
+
 # Compiled class file
 *.class
 
