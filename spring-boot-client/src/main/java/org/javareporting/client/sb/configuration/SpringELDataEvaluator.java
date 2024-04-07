@@ -1,26 +1,25 @@
 package org.javareporting.client.sb.configuration;
 
 import org.javareporting.framework.core.engine.DataEvaluator;
-import org.springframework.expression.EvaluationContext;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.beans.factory.config.BeanExpressionContext;
+import org.springframework.beans.factory.config.BeanExpressionResolver;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SpringELDataEvaluator implements DataEvaluator {
 
-    private final ExpressionParser expressionParser;
-    private final EvaluationContext evaluationContext;
+    private final BeanExpressionResolver beanExpressionResolver;
 
-    public SpringELDataEvaluator() {
-        expressionParser = new SpelExpressionParser();
-        evaluationContext = new StandardEvaluationContext();
+    private final BeanExpressionContext beanExpressionContext;
+
+    public SpringELDataEvaluator(ConfigurableBeanFactory configurableBeanFactory) {
+        this.beanExpressionResolver = configurableBeanFactory.getBeanExpressionResolver();
+        this.beanExpressionContext = new BeanExpressionContext(configurableBeanFactory, null);
     }
 
     @Override
     public String evaluate(String expression) {
-
-        Expression expr = expressionParser.parseExpression(expression);
-        return String.valueOf(expr.getValue(evaluationContext));
+        return String.valueOf(beanExpressionResolver.evaluate(expression, beanExpressionContext));
     }
 }
