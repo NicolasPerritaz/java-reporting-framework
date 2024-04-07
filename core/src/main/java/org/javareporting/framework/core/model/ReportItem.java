@@ -1,4 +1,5 @@
 package org.javareporting.framework.core.model;
 
-public interface ReportItem {
+public sealed interface ReportItem
+        permits Data {
 }

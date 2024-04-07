@@ -1,8 +1,8 @@
 package org.javareporting.framework.core;
 
 import org.javareporting.framework.core.engine.ReportEngine;
-import org.javareporting.framework.core.model.Report;
-import org.javareporting.framework.core.model.TextItem;
+import org.javareporting.framework.core.model.Data;
+import org.javareporting.framework.core.model.ReportModel;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,10 +11,10 @@ class ReportGenerationTest {
 
     @Test
     void generateReport() {
-        Report report = new Report(List.of(new TextItem("Hello World!")));
+        ReportModel reportModel = new ReportModel(List.of(new Data("${testDataSet.helloNow}")));
 
         ReportEngine engine = new ReportEngine() ;
-        engine.generateReport(report);
+        engine.render(reportModel);
 
     }
 
