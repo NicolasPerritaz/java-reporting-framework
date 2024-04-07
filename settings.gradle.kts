@@ -1,2 +1,2 @@
 rootProject.name = "java-reporting-framework"
-include("core")
+include("core", "spring-boot-client")
