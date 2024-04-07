@@ -1,6 +1,7 @@
 package org.javareporting.framework.core;
 
 import org.javareporting.framework.core.engine.ReportEngine;
+import org.javareporting.framework.core.engine.configuration.ReportEngineConfiguration;
 import org.javareporting.framework.core.model.Data;
 import org.javareporting.framework.core.model.ReportModel;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ class ReportGenerationTest {
     void generateReport() {
         ReportModel reportModel = new ReportModel(List.of(new Data("${testDataSet.helloNow}")));
 
-        ReportEngine engine = new ReportEngine() ;
+        ReportEngine engine = new ReportEngine(new ReportEngineConfiguration.Builder().build()) ;
         engine.render(reportModel);
 
     }
